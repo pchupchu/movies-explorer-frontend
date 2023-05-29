@@ -20,7 +20,9 @@ function Login() {
             placeholder="Email"
             required
           />
-          <span className={`form__item-error}`}></span>
+          <span className={`form__item-error form__item-error_active`}>
+            Что-то пошло не так...
+          </span>
         </label>
         <label className="form__label">
           Пароль
@@ -34,7 +36,9 @@ function Login() {
             maxLength="30"
             required
           />
-          <span className={`form__item-error}`}></span>
+          <span className={`form__item-error form__item-error_active`}>
+            Что-то пошло не так...
+          </span>
         </label>
         <button type="submit" className="form__button login__button">
           Войти
@@ -42,7 +46,7 @@ function Login() {
       </form>
       <span className="login__text">
         {"Ещё не зарегистрированы? "}
-        <Link className="login__link" to="/signup">
+        <Link className="login__text login__link" to="/signup">
           Регистрация
         </Link>
       </span>
