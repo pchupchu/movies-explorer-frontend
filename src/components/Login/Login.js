@@ -9,38 +9,40 @@ function Login() {
         <img className="login__logo" src={logo} alt="главная страница" />
       </Link>
       <h2 className="login__title">Рады видеть!</h2>
-      <form className="form login__form">
-        <label className="form__label">
-          E-mail
-          <input
-            type="email"
-            className="form__item"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <span className={`form__item-error form__item-error_active`}>
-            Что-то пошло не так...
-          </span>
-        </label>
-        <label className="form__label">
-          Пароль
-          <input
-            type="password"
-            className="form__item"
-            id="password"
-            name="password"
-            placeholder="Пароль"
-            minLength="6"
-            maxLength="30"
-            required
-          />
-          <span className={`form__item-error form__item-error_active`}>
-            Что-то пошло не так...
-          </span>
-        </label>
-        <button type="submit" className="form__button login__button">
+      <form className="login__form">
+        <div>
+          <label className="login__form-label">
+            E-mail
+            <input
+              type="email"
+              className="login__form-item"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <span className={`login__form-error login__form-error_active`}>
+              Что-то пошло не так...
+            </span>
+          </label>
+          <label className="login__form-label">
+            Пароль
+            <input
+              type="password"
+              className="login__form-item"
+              id="password"
+              name="password"
+              placeholder="Пароль"
+              minLength="6"
+              maxLength="30"
+              required
+            />
+            <span className={`login__form-error login__form-error_active`}>
+              Что-то пошло не так...
+            </span>
+          </label>
+        </div>
+        <button type="submit" className="login__form-button">
           Войти
         </button>
       </form>

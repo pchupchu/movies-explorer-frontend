@@ -6,6 +6,14 @@
   height: 100vh;
   max-width: 396px;
   width: 100%;
+  padding: 70px;
+}
+
+@media screen and (max-width: 576px) {
+  .login {
+    padding: 56px 10px 30px;
+    box-sizing: border-box;
+  }
 }
 
 .login__logo {
@@ -17,7 +25,7 @@
 @media screen and (max-width: 576px) {
   .login__logo {
     display: block;
-    margin: 26px auto 50px;
+    margin: 0 auto 50px;
   }
 }
 
@@ -37,20 +45,22 @@
   }
 }
 
-.form {
+.login__form {
   max-width: 396px;
   margin: 0 auto 16px;
   width: 100%;
 }
 
 @media screen and (max-width: 576px) {
-  .form {
+  .login__form {
     margin-bottom: 14px;
     max-width: 260px;
+    display: flex;
+    flex-direction: column;
   }
 }
 
-.form__label {
+.login__form-label {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -61,7 +71,7 @@
   margin-bottom: 24px;
 }
 
-.form__item {
+.login__form-item {
   font-family: inherit;
   margin-top: 5px;
   padding: 0;
@@ -76,40 +86,40 @@
   line-height: 1.21;
 }
 
-.form__item:focus {
+.login__form-item:focus {
   outline: none;
   border-bottom: 1px solid #000;
 }
 
-.form__item::placeholder {
+.login__form-item::placeholder {
   font-family: inherit;
   color: #c4c4c4;
   font-size: 14px;
   line-height: 1.21;
 }
 
-.form__item::-webkit-input-placeholder {
+.login__form-item::-webkit-input-placeholder {
   font-family: inherit;
   color: #c4c4c4;
   font-size: 14px;
   line-height: 1.21;
 }
 
-.form__item::-moz-placeholder {
+.login__form-item::-moz-placeholder {
   font-family: inherit;
   color: #c4c4c4;
   font-size: 14px;
   line-height: 1.21;
 }
 
-.form__item::-ms-input-placeholder {
+.login__form-item::-ms-input-placeholder {
   font-family: inherit;
   color: #c4c4c4;
   font-size: 14px;
   line-height: 1.21;
 }
 
-.form__item-error {
+.login__form-error {
   font-size: 10px;
   font-weight: 400;
   color: #ff4062;
@@ -126,20 +136,21 @@
 }
 
 @media screen and (max-width: 576px) {
-  .form__item-error {
+  .login__form-error {
     max-width: 260px;
   }
 }
 
-.form__item-error_active {
+.login__form-error_active {
   visibility: visible;
 }
 
-.form__button {
+.login__form-button {
   padding: 0;
   width: 100%;
   height: 45px;
   border-radius: 3px;
+  border: none;
   background-color: #000;
   color: #fff;
   font-size: 14px;
@@ -151,14 +162,14 @@
   transition: opacity 0.8s ease-in-out;
 }
 
-.form__button:hover {
+.login__form-button:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 576px) {
-  .form__button {
-    margin-top: 309px;
+  .login__form-button {
     font-size: 12px;
+    margin-top: calc(100vh - 494px);
   }
 }
 
@@ -179,9 +190,6 @@
 
 .login__link {
   color: #000;
-  /* font-size: 14px;
-  font-weight: 400;
-  line-height: 1.22; */
   text-decoration: none;
   cursor: pointer;
   opacity: 1;
