@@ -1,32 +1,46 @@
 import { Link } from "react-router-dom";
-// import "./Register.css";
+import "./Register.css";
 import logo from "../../images/logo.svg";
 
 function Register() {
   return (
-    <section className="login">
+    <section className="auth">
       <Link to="/">
-        <img className="login__logo" src={logo} alt="главная страница" />
+        <img className="auth__logo" src={logo} alt="главная страница" />
       </Link>
-      <h2 className="login__title">Рады видеть!</h2>
-      <form className="form login__form">
-        <label className="form__label">
+      <h2 className="auth__title">Добро пожаловать!</h2>
+      <form className="auth__form">
+        <label className="auth__form-label">
+          Имя
+          <input
+            type="email"
+            className="auth__form-item"
+            id="name"
+            name="name"
+            placeholder="Имя"
+            minLength="6"
+            maxLength="30"
+            required
+          />
+          <span className={`auth__form-error auth__form-error_active`}></span>
+        </label>
+        <label className="auth__form-label">
           E-mail
           <input
             type="email"
-            className="form__item"
+            className="auth__form-item"
             id="email"
             name="email"
             placeholder="Email"
             required
           />
-          <span className={`form__item-error}`}></span>
+          <span className={`auth__form-error auth__form-error_active`}></span>
         </label>
-        <label className="form__label">
+        <label className="auth__form-label">
           Пароль
           <input
             type="password"
-            className="form__item"
+            className="auth__form-item"
             id="password"
             name="password"
             placeholder="Пароль"
@@ -34,15 +48,18 @@ function Register() {
             maxLength="30"
             required
           />
-          <span className={`form__item-error}`}></span>
+          <span className={`auth__form-error auth__form-error_active`}></span>
         </label>
-        <button type="submit" className="form__button login__button">
+        <button type="submit" className="auth__form-button">
           Зарегистрироваться
         </button>
       </form>
-      <Link className="login__link" to="/signin">
-        Уже зарегистрированы? Войти
-      </Link>
+      <span className="login__text">
+        {"Уже зарегистрированы? "}
+        <Link className="login__text login__link" to="/signup">
+          Войти
+        </Link>
+      </span>
     </section>
   );
 }
