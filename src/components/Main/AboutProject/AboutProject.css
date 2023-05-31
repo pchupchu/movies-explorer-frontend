@@ -1,0 +1,156 @@
+.about {
+  padding: 110px 70px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .about {
+    padding: 70px 18px;
+  }
+}
+
+.about__header {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.21;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid #000;
+  margin: 0;
+  padding-bottom: 23px;
+}
+
+@media screen and (max-width: 425px) {
+  .about__header {
+    font-size: 18px;
+    padding-bottom: 28px;
+  }
+}
+
+.about__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 40px;
+  margin: 70px 0 110px;
+}
+
+@media screen and (max-width: 768px) {
+  .about__list {
+    gap: 30px;
+    margin-bottom: 93px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .about__list {
+    flex-direction: column;
+    margin: 60px 0;
+    gap: 56px;
+  }
+}
+
+.about__title {
+  max-width: 550px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 0 0 26px;
+}
+
+@media screen and (max-width: 768px) {
+  .about__title {
+    margin-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .about__title {
+    font-size: 18px;
+    line-height: 1.21;
+    margin-bottom: 16px;
+  }
+}
+
+.about__text {
+  max-width: 550px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.43;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about__text {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .about__text {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+}
+
+.about__table-header {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  height: 36px;
+  background-color: #f2f2f2;
+}
+
+@media screen and (max-width: 425px) {
+  .about__table-header {
+    font-size: 11px;
+    height: 35px;
+  }
+}
+
+.about__table-header_backend {
+  background-color: #000;
+  color: #fff;
+  width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+  .about__table-header_backend {
+    width: 21%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .about__table-header_backend {
+    width: 35%;
+  }
+}
+
+.about__table-data {
+  color: #a0a0a0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  vertical-align: bottom;
+  height: 31px;
+}
+
+@media screen and (max-width: 425px) {
+  .about__table-data {
+    font-size: 11px;
+    line-height: 1.16;
+    height: 23px;
+  }
+}

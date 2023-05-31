@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  margin: 75px 0;
+  margin: 75px 70px;
   color: #000;
   background-image: url("../../../images/landing-logo.png");
   background-size: 310px 304px;
@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 1050px) {
   .promo {
-    margin-top: 140px;
+    margin: 140px 44px 76px;
     background-position: top center;
     text-align: center;
   }
