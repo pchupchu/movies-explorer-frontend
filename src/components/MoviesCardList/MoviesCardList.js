@@ -3,11 +3,11 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList() {
   return (
-    <section className="movies-list">
+    <ul className="movies-list">
       <MoviesCard />
       <MoviesCard />
       <MoviesCard />
-    </section>
+    </ul>
   );
 }
 

@@ -17,9 +17,7 @@ function MoviesCard() {
         type="button"
       ></button>
       <div className="movie__description">
-        <h2 className="movie__title">
-          Пи Джей Харви: A dog called money blabla blablablablabla
-        </h2>
+        <h2 className="movie__title">Пи Джей Харви: A dog called money</h2>
         <div className="movie__length-container">
           <p className="movie__length">1.17</p>
         </div>

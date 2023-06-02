@@ -48,8 +48,6 @@
   font-size: 10px;
   line-height: 0.9;
   text-align: center;
-  opacity: 1;
-  transition: opacity 0.8s ease-in-out;
 }
 
 .movie__like-button::before {
@@ -80,7 +78,7 @@
   }
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 425px) {
   .movie__description {
     margin-bottom: 13px;
   }
@@ -90,8 +88,14 @@
   margin: 0;
   font-weight: 500;
   font-size: 13px;
-  line-height: 1.23;
+  line-height: 1.21;
   max-width: 250px;
+}
+
+@media screen and (max-width: 425px) {
+  .movie__description {
+    font-size: 12px;
+  }
 }
 
 .movie__length-container {
