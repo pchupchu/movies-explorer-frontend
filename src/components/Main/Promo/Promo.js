@@ -10,7 +10,7 @@ function Promo() {
       <p className="promo__text">
         Листайте ниже, чтобы узнать больше про этот проект и его создателя.
       </p>
-      <Link to="/" className="promo__link">
+      <Link to="/#project" className="promo__link">
         Узнать больше
       </Link>
     </section>
