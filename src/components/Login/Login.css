@@ -89,6 +89,10 @@
   border-bottom: 1px solid #000;
 }
 
+.login__form-item:invalid {
+  color: #ff4062;
+}
+
 .login__form-item::placeholder {
   font-family: inherit;
   color: #c4c4c4;

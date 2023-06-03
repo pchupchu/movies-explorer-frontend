@@ -1,10 +1,10 @@
 import "./SearchForm.css";
+import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
 function SearchForm() {
   return (
     <div className="search">
       <form className="search__form">
-        {/* <label className="search__label"> */}
         <input
           type="film"
           className="search__input"
@@ -13,9 +13,9 @@ function SearchForm() {
           placeholder="Фильм"
           required
         />
-        {/* </label> */}
         <button className="search__button" type="button"></button>
       </form>
+      <FilterCheckbox />
     </div>
   );
 }

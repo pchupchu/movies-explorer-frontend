@@ -13,7 +13,7 @@ function Register() {
         <label className="auth__form-label">
           Имя
           <input
-            type="email"
+            type="text"
             className="auth__form-item"
             id="name"
             name="name"

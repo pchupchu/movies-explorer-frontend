@@ -48,10 +48,15 @@
   font-size: 10px;
   line-height: 0.9;
   text-align: center;
+  display: none;
 }
 
 .movie__like-button::before {
   content: "Сохранить";
+}
+
+.movie:hover .movie__like-button {
+  display: block;
 }
 
 .movie__liked-button {

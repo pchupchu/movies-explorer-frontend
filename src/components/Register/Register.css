@@ -89,11 +89,13 @@
   border-bottom: 1px solid #000;
 }
 
-.auth__form-item::placeholder {
-  font-family: inherit;
-  color: #c4c4c4;
-  font-size: 14px;
-  line-height: 1.21;
+.auth__form-item:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
+.auth__form-item:invalid {
+  color: #ff4062;
 }
 
 .auth__form-item::-webkit-input-placeholder {
