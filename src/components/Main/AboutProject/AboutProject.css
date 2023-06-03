@@ -6,7 +6,7 @@
   background-color: #fff;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 960px) {
   .about {
     padding: 90px 50px;
   }

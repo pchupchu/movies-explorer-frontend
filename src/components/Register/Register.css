@@ -71,10 +71,9 @@
 }
 
 .auth__form-item {
-  font-family: inherit;
   margin: 0;
   padding: 0;
-  border: 0;
+  border: none;
   width: 100%;
   min-height: 32px;
   box-sizing: border-box;
