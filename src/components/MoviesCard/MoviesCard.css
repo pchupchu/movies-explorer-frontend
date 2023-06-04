@@ -69,6 +69,11 @@
   background-color: transparent;
   width: 21px;
   background-image: url("../../images/dislike.svg");
+  display: none;
+}
+
+.movie:hover .movie__dislike-button {
+  display: block;
 }
 
 .movie__description {

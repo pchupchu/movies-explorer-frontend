@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 
 function Register() {
   return (
-    <section className="auth">
+    <main className="auth">
       <Link to="/">
         <img className="auth__logo" src={logo} alt="главная страница" />
       </Link>
@@ -22,7 +22,9 @@ function Register() {
             maxLength="30"
             required
           />
-          <span className={`auth__form-error auth__form-error_active`}></span>
+          <span className={`auth__form-error auth__form-error_active`}>
+            Что-то пошло не так...
+          </span>
         </label>
         <label className="auth__form-label">
           E-mail
@@ -34,7 +36,9 @@ function Register() {
             placeholder="Email"
             required
           />
-          <span className={`auth__form-error auth__form-error_active`}></span>
+          <span className={`auth__form-error auth__form-error_active`}>
+            Что-то пошло не так...
+          </span>
         </label>
         <label className="auth__form-label">
           Пароль
@@ -48,19 +52,21 @@ function Register() {
             maxLength="30"
             required
           />
-          <span className={`auth__form-error auth__form-error_active`}></span>
+          <span className={`auth__form-error auth__form-error_active`}>
+            Что-то пошло не так...
+          </span>
         </label>
         <button type="submit" className="auth__form-button">
           Зарегистрироваться
         </button>
       </form>
-      <span className="login__text">
+      <span className="auth__text">
         {"Уже зарегистрированы? "}
-        <Link className="login__text login__link" to="/signup">
+        <Link className="auth__text auth__link" to="/signup">
           Войти
         </Link>
       </span>
-    </section>
+    </main>
   );
 }
 
