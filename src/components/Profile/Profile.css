@@ -178,6 +178,17 @@
   margin-bottom: 16px;
   cursor: pointer;
   flex-grow: 0;
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.profile__button:hover {
+  opacity: 0.8;
+}
+
+.profile__button:focus {
+  outline: none;
+  border: 1px solid #f3c1f8;
 }
 
 @media screen and (max-width: 576px) {
@@ -191,10 +202,4 @@
   color: #ff4062;
   text-decoration: none;
   cursor: pointer;
-  opacity: 1;
-  transition: opacity 0.8s ease-in-out;
-}
-
-.profile__link:hover {
-  opacity: 0.7;
 }

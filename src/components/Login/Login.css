@@ -20,6 +20,12 @@
   height: 38px;
   width: 38px;
   margin-bottom: 40px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.login__logo:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 576px) {
@@ -168,6 +174,10 @@
   opacity: 0.8;
 }
 
+.login__form-button:focus {
+  border: 5px solid #f3c1f8;
+}
+
 @media screen and (max-width: 576px) {
   .login__form-button {
     font-size: 12px;
@@ -199,5 +209,5 @@
 }
 
 .login__link:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }

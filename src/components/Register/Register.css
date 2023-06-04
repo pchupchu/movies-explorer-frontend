@@ -166,6 +166,10 @@
   opacity: 0.8;
 }
 
+.auth__form-button:focus {
+  border: 5px solid #f3c1f8;
+}
+
 @media screen and (max-width: 576px) and (min-height: 600px) {
   .auth__form-button {
     font-size: 12px;
@@ -204,5 +208,5 @@
 }
 
 .auth__link:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }

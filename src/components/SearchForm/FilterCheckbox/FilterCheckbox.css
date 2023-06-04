@@ -54,6 +54,10 @@
   background-color: #2be080;
 }
 
+.filter__input:focus {
+  border: 1px solid #000;
+}
+
 .filter__title {
   font-weight: 400;
   font-size: 13px;
