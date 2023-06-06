@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 import PJHarvy from "../../images/PJHarvy.jpg";
 
 function MoviesCard() {
+  const location = useLocation();
   return (
     <li className="movie">
       <Link to="/">
@@ -13,7 +14,11 @@ function MoviesCard() {
         />
       </Link>
       <button
-        className="movie__button movie__like-button"
+        className={`movie__button ${
+          location.pathname === "/movies"
+            ? "movie__like-button"
+            : "movie__dislike-button"
+        }`}
         type="button"
       ></button>
       <div className="movie__description">
