@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./MoviesCard.css";
 import PJHarvy from "../../images/PJHarvy.jpg";
 
-function MoviesCard() {
+function MoviesCard({ isLiked }) {
   const location = useLocation();
   return (
     <li className="movie">
@@ -13,14 +13,20 @@ function MoviesCard() {
           alt="Пи Джей Харви: A dog called money"
         />
       </Link>
-      <button
-        className={`movie__button ${
-          location.pathname === "/movies"
-            ? "movie__like-button"
-            : "movie__dislike-button"
-        }`}
-        type="button"
-      ></button>
+
+      {location.pathname === "/saved-movies" ? (
+        <button
+          className="movie__button movie__dislike-button"
+          type="button"
+        ></button>
+      ) : (
+        <button
+          className={`movie__button ${
+            isLiked ? "movie__liked-button" : "movie__like-button"
+          }`}
+          type="button"
+        ></button>
+      )}
       <div className="movie__description">
         <h2 className="movie__title">Пи Джей Харви: A dog called money</h2>
         <div className="movie__length-container">

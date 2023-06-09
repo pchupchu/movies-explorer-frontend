@@ -12,6 +12,7 @@ import Preloader from "../Preloader/Preloader";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   return (
     <div className="app">
@@ -21,7 +22,10 @@ function App() {
 
         <Route path="/profile" element={<Profile loggedIn={loggedIn} />} />
         <Route path="/" element={<Main loggedIn={loggedIn} />} />
-        <Route path="/movies" element={<Movies loggedIn={loggedIn} />} />
+        <Route
+          path="/movies"
+          element={<Movies loggedIn={loggedIn} isLiked={isLiked} />}
+        />
         <Route
           path="/saved-movies"
           element={<SavedMovies loggedIn={loggedIn} />}

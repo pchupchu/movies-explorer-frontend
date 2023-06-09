@@ -4,12 +4,12 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesButton from "../MoviesButton/MoviesButton";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Movies() {
+function Movies({ isLiked }) {
   return (
     <>
       <Header />
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList isLiked={isLiked} />
       <MoviesButton />
       <Footer />
     </>

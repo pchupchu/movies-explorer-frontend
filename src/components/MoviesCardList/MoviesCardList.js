@@ -1,11 +1,12 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList() {
+function MoviesCardList({ isLiked }) {
+  isLiked = true;
   return (
     <ul className="movies-list">
       <MoviesCard />
-      <MoviesCard />
+      <MoviesCard isLiked={isLiked} />
       <MoviesCard />
     </ul>
   );

@@ -6,7 +6,7 @@ import { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 
 function Header({ loggedIn }) {
-  loggedIn = false;
+  loggedIn = true;
   const location = useLocation();
 
   const [isBurger, setIsBurger] = useState(false);
