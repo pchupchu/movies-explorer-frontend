@@ -4,8 +4,6 @@
 
 .navbar__opened {
   display: none;
-  align-items: right;
-  /* justify-content: right; */
   width: 100%;
   height: 100%;
   opacity: 1;
@@ -25,11 +23,12 @@
 .navbar__container {
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 120px 0 80px;
+  padding: 156px 0 94px;
   background-color: #fff;
   color: #000;
-  width: 520px;
-  height: 700px;
+  max-width: 520px;
+  width: 70%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,7 +36,13 @@
   position: absolute;
   top: 0;
   right: 0;
-  /* transition: all 0.3s ease-in-out; */
+}
+
+@media screen and (max-width: 425px) {
+  .navbar__container {
+    width: 100%;
+    padding: 142px 0 48px;
+  }
 }
 
 .navbar__links {
@@ -46,11 +51,19 @@
   align-items: center;
   list-style: none;
   margin: 0 auto;
+  padding: 0;
+  gap: 20px;
+}
+
+@media screen and (max-width: 425px) {
+  .navbar__links {
+    gap: 15px;
+  }
 }
 
 .navbar__link {
   display: block;
-  padding: 12px 24px;
+  padding: 4px;
   color: #000;
   font-size: 18px;
   font-weight: 500;
@@ -61,5 +74,10 @@
 }
 
 .navbar__link_active {
-  border-bottom: 3px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+.navbar__link_profile {
+  font-size: 14px;
+  line-height: 1.14;
 }
