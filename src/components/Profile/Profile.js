@@ -19,7 +19,7 @@ function Profile() {
               id="name"
               name="name"
               placeholder="Имя"
-              minLength="6"
+              minLength="2"
               maxLength="30"
               required
               defaultValue={"Виталий"}

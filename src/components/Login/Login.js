@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
 import logo from "../../images/logo.svg";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Login() {
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
   return (
     <main className="login">
       <Link to="/">
@@ -18,10 +20,16 @@ function Login() {
             id="email"
             name="email"
             placeholder="Email"
+            value={values.email || ""}
+            onChange={handleChange}
             required
           />
-          <span className={`login__form-error login__form-error_active`}>
-            Что-то пошло не так...
+          <span
+            className={`auth__form-error ${
+              isValid ? "" : "auth__form-error_active"
+            }`}
+          >
+            {errors.email}
           </span>
         </label>
         <label className="login__form-label">
@@ -34,10 +42,16 @@ function Login() {
             placeholder="Пароль"
             minLength="6"
             maxLength="30"
+            value={values.password || ""}
+            onChange={handleChange}
             required
           />
-          <span className={`login__form-error login__form-error_active`}>
-            Что-то пошло не так...
+          <span
+            className={`auth__form-error ${
+              isValid ? "" : "auth__form-error_active"
+            }`}
+          >
+            {errors.password}
           </span>
         </label>
         <button type="submit" className="login__form-button">

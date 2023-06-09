@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import "./Register.css";
 import logo from "../../images/logo.svg";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Register() {
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
+
   return (
     <main className="auth">
       <Link to="/">
@@ -18,12 +21,18 @@ function Register() {
             id="name"
             name="name"
             placeholder="Имя"
-            minLength="6"
+            minLength="2"
             maxLength="30"
+            value={values.name || ""}
+            onChange={handleChange}
             required
           />
-          <span className={`auth__form-error auth__form-error_active`}>
-            Что-то пошло не так...
+          <span
+            className={`auth__form-error ${
+              isValid ? "" : "auth__form-error_active"
+            }`}
+          >
+            {errors.name}
           </span>
         </label>
         <label className="auth__form-label">
@@ -34,10 +43,16 @@ function Register() {
             id="email"
             name="email"
             placeholder="Email"
+            value={values.email || ""}
+            onChange={handleChange}
             required
           />
-          <span className={`auth__form-error auth__form-error_active`}>
-            Что-то пошло не так...
+          <span
+            className={`auth__form-error ${
+              isValid ? "" : "auth__form-error_active"
+            }`}
+          >
+            {errors.email}
           </span>
         </label>
         <label className="auth__form-label">
@@ -50,10 +65,16 @@ function Register() {
             placeholder="Пароль"
             minLength="6"
             maxLength="30"
+            value={values.password || ""}
+            onChange={handleChange}
             required
           />
-          <span className={`auth__form-error auth__form-error_active`}>
-            Что-то пошло не так...
+          <span
+            className={`auth__form-error ${
+              isValid ? "" : "auth__form-error_active"
+            }`}
+          >
+            {errors.password}
           </span>
         </label>
         <button type="submit" className="auth__form-button">
@@ -62,7 +83,7 @@ function Register() {
       </form>
       <span className="auth__text">
         {"Уже зарегистрированы? "}
-        <Link className="auth__text auth__link" to="/signup">
+        <Link className="auth__text auth__link" to="/signin">
           Войти
         </Link>
       </span>
