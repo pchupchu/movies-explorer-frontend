@@ -8,11 +8,22 @@ import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
-import Preloader from "../Preloader/Preloader";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  function closePopup() {
+    setIsInfoTooltipOpen(false);
+  }
+
+  function handleSuccess() {
+    setIsSuccess(true);
+    setIsInfoTooltipOpen(true);
+  }
 
   return (
     <div className="app">
@@ -20,7 +31,12 @@ function App() {
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Register />} />
 
-        <Route path="/profile" element={<Profile loggedIn={loggedIn} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile loggedIn={loggedIn} handleSuccess={handleSuccess} />
+          }
+        />
         <Route path="/" element={<Main loggedIn={loggedIn} />} />
         <Route
           path="/movies"
@@ -31,8 +47,12 @@ function App() {
           element={<SavedMovies loggedIn={loggedIn} />}
         />
         <Route path="*" element={<NotFound />} />
-        <Route path="/load" element={<Preloader />} />
       </Routes>
+      <InfoTooltip
+        isOpen={isInfoTooltipOpen}
+        onClose={closePopup}
+        isSuccess={isSuccess}
+      />
     </div>
   );
 }

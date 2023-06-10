@@ -4,7 +4,7 @@ import "./Profile.css";
 import Header from "../Header/Header";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Profile({ loggedIn }) {
+function Profile({ loggedIn, handleSuccess }) {
   const { values, handleChange, isValid } = useFormAndValidation();
 
   const [isEdit, setIsEdit] = useState(false);
@@ -13,12 +13,17 @@ function Profile({ loggedIn }) {
     setIsEdit(!isEdit);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleSuccess(true);
+  }
+
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="profile__container">
         <h2 className="profile__title">Привет, Виталий!</h2>
-        <form className="profile__form" noValidate>
+        <form className="profile__form" onSubmit={handleSubmit} noValidate>
           <fieldset className="profile__form-section">
             <label htmlFor="name" className="profile__form-label">
               Имя
