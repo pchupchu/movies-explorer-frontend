@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Profile() {
+function Profile({ loggedIn }) {
+  const { values, handleChange, isValid } = useFormAndValidation();
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  function handleEditProfile() {
+    setIsEdit(!isEdit);
+  }
+
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn} />
       <main className="profile__container">
         <h2 className="profile__title">Привет, Виталий!</h2>
-        <form className="profile__form">
+        <form className="profile__form" noValidate>
           <fieldset className="profile__form-section">
             <label htmlFor="name" className="profile__form-label">
               Имя
@@ -22,7 +32,9 @@ function Profile() {
               minLength="2"
               maxLength="30"
               required
-              defaultValue={"Виталий"}
+              value={values.name || "Виталий"}
+              onChange={handleChange}
+              disabled={!isEdit}
             />
           </fieldset>
           <fieldset className="profile__form-section">
@@ -36,19 +48,47 @@ function Profile() {
               name="email"
               placeholder="Email"
               required
-              defaultValue={"pochta@yandex.ru"}
+              value={values.email || "pochta@yandex.ru"}
+              onChange={handleChange}
+              disabled={!isEdit}
             />
           </fieldset>
-          {/* <button type="submit" className="profile__form-button">
-            Сохранить
-          </button> */}
+
+          {isEdit ? (
+            <>
+              <span
+                className={`profile__form-error ${
+                  isValid ? "" : "profile__form-error_active"
+                }`}
+              >
+                При обновлении профиля произошла ошибка.
+              </span>
+              <button
+                type="submit"
+                disabled={!isValid}
+                className={`profile__form-button ${
+                  isValid ? "" : "profile__form-button_inactive"
+                }`}
+              >
+                Сохранить
+              </button>{" "}
+            </>
+          ) : null}
         </form>
-        <button type="button" className="profile__button">
-          Редактировать
-        </button>
-        <Link className="profile__button profile__link" to="/signup">
-          Выйти из аккаунта
-        </Link>
+        {!isEdit ? (
+          <>
+            <button
+              type="button"
+              className="profile__button"
+              onClick={handleEditProfile}
+            >
+              Редактировать
+            </button>
+            <Link className="profile__button profile__link" to="/signup">
+              Выйти из аккаунта
+            </Link>
+          </>
+        ) : null}
       </main>
     </>
   );

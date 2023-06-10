@@ -4,6 +4,7 @@ import PJHarvy from "../../images/PJHarvy.jpg";
 
 function MoviesCard({ isLiked }) {
   const location = useLocation();
+
   return (
     <li className="movie">
       <Link to="/">
