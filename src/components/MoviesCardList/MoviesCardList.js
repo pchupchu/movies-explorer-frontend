@@ -7,6 +7,8 @@ function MoviesCardList({ isLiked }) {
       <MoviesCard isLiked={isLiked} />
       <MoviesCard isLiked={true} />
       <MoviesCard isLiked={isLiked} />
+      <MoviesCard isLiked={isLiked} />
+      <MoviesCard isLiked={isLiked} />
     </ul>
   );
 }

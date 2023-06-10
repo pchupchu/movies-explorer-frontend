@@ -1,19 +1,24 @@
 import "./SearchForm.css";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
-function SearchForm() {
+function SearchForm({ onSearchFilm }) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSearchFilm();
+  }
+
   return (
     <div className="search">
-      <form className="search__form">
+      <form className="search__form" onSubmit={handleSubmit}>
         <input
-          type="film"
+          type="text"
           className="search__input"
           id="film"
           name="film"
           placeholder="Фильм"
           required
         />
-        <button className="search__button" type="button"></button>
+        <button className="search__button" type="submit"></button>
       </form>
       <FilterCheckbox />
     </div>

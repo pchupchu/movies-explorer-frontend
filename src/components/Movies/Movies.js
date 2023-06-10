@@ -1,16 +1,15 @@
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesButton from "../MoviesButton/MoviesButton";
 import SearchForm from "../SearchForm/SearchForm";
+import Preloader from "../Preloader/Preloader";
+import MoviesAll from "../MoviesAll/MoviesAll";
 
-function Movies({ isLiked, loggedIn }) {
+function Movies({ isLiked, loggedIn, isLoading, onSearchFilm }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <SearchForm />
-      <MoviesCardList isLiked={isLiked} />
-      <MoviesButton />
+      <SearchForm onSearchFilm={onSearchFilm} />
+      {isLoading ? <Preloader /> : <MoviesAll isLiked={isLiked} />}
       <Footer />
     </>
   );
