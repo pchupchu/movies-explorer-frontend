@@ -1,0 +1,144 @@
+.search {
+  flex-grow: 0;
+  margin: 0 auto;
+  padding: 70px 70px 48px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .search {
+    padding: 80px 30px 60px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .search {
+    padding: 82px 14px 50px;
+  }
+}
+
+.search__form {
+  border-bottom: 1px solid #e8e8e8;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 960px) {
+  .search__form {
+    margin-bottom: 29px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .search__form {
+    margin-bottom: 40px;
+  }
+}
+
+.search__input {
+  margin: 0 0 13px;
+  padding: 0;
+  border: none;
+  min-height: 34px;
+  background-color: transparent;
+  border: none;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #000;
+  width: 70%;
+}
+
+.search__input:focus {
+  outline: none;
+  background-color: #e8e8e8;
+}
+
+.search__input::placeholder {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 425px) {
+  .search__input::placeholder {
+    font-size: 18px;
+  }
+}
+
+.search__input::-webkit-input-placeholder {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 425px) {
+  .search__input::-webkit-input-placeholder {
+    font-size: 18px;
+  }
+}
+
+.search__input::-moz-placeholder {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 425px) {
+  .search__input::-moz-placeholder {
+    font-size: 18px;
+  }
+}
+
+.search__input::-ms-input-placeholder {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 425px) {
+  .search__input::-ms-input-placeholder {
+    font-size: 18px;
+  }
+}
+
+.search__button {
+  margin: 0 0 13px;
+  padding: 0;
+  background-color: #000;
+  width: 80px;
+  height: 34px;
+  border: none;
+  border-radius: 48px;
+  background-image: url("../../images/search-button.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.search__button_inactive {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+}
+
+.search__button:hover {
+  opacity: 0.8;
+}
+
+.search__button:focus {
+  border: 5px solid #2be080;
+}
+
+@media screen and (max-width: 425px) {
+  .search__button {
+    margin-bottom: 9px;
+  }
+}

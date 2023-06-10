@@ -1,0 +1,83 @@
+.login__form-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #a0a0a0;
+  margin-bottom: 24px;
+}
+
+.login__form-item {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+  min-height: 32px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e8e8e8;
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.login__form-item:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
+.login__form-item:invalid {
+  color: #ff4062;
+}
+
+.login__form-item::placeholder {
+  color: #c4c4c4;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.login__form-item::-webkit-input-placeholder {
+  color: #c4c4c4;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.login__form-item::-moz-placeholder {
+  color: #c4c4c4;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.login__form-item::-ms-input-placeholder {
+  color: #c4c4c4;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.login__form-error {
+  font-size: 10px;
+  font-weight: 400;
+  color: #ff4062;
+  line-height: 1.2;
+  display: block;
+  max-height: 12px;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  max-width: 390px;
+  margin: 0;
+}
+
+@media screen and (max-width: 576px) {
+  .login__form-error {
+    max-width: 260px;
+  }
+}
+
+.login__form-error_active {
+  visibility: visible;
+}

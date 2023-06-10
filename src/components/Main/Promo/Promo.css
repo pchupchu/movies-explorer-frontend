@@ -1,0 +1,119 @@
+.promo {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 75px 70px;
+  margin: 0;
+  color: #000;
+  background-color: #f3c1f8;
+}
+
+@media screen and (max-width: 1050px) {
+  .promo {
+    padding: 140px 44px 76px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .promo {
+    padding: 70px 10px 30px;
+  }
+}
+
+.promo__container {
+  margin: 0;
+  background-image: url("../../../images/landing-logo.png");
+  background-size: 310px 304px;
+  background-repeat: no-repeat;
+  background-position: top right;
+}
+
+@media screen and (max-width: 1050px) {
+  .promo__container {
+    background-position: top center;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .promo__container {
+    background-size: 210px 206px;
+  }
+}
+
+.promo__title {
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 1.16;
+  max-width: 640px;
+  margin: 0 0 36px;
+}
+
+@media screen and (max-width: 1050px) {
+  .promo__title {
+    margin: 352px auto 22px;
+    font-size: 40px;
+    line-height: 1.25;
+    max-width: 680px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .promo__title {
+    margin: 250px auto 24px;
+    font-size: 30px;
+    line-height: 1.27;
+    letter-spacing: -0.04em;
+  }
+}
+
+.promo__text {
+  max-width: 310px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.21;
+  opacity: 0.5;
+  margin: 0 0 146px;
+}
+
+@media screen and (max-width: 1050px) {
+  .promo__text {
+    margin: 0 auto 92px;
+    max-width: 260px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .promo__text {
+    margin-bottom: 80px;
+  }
+}
+
+.promo__link {
+  height: 36px;
+  width: 129px;
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.promo__link:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 1050px) {
+  .promo__link {
+    margin: 0 auto;
+  }
+}
