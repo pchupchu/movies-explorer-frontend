@@ -15,6 +15,7 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function closePopup() {
     setIsInfoTooltipOpen(false);
@@ -25,6 +26,9 @@ function App() {
     setIsInfoTooltipOpen(true);
   }
 
+  function handleSearchFilm() {
+    setIsLoading(true);
+  }
   return (
     <div className="app">
       <Routes>
@@ -40,7 +44,14 @@ function App() {
         <Route path="/" element={<Main loggedIn={loggedIn} />} />
         <Route
           path="/movies"
-          element={<Movies loggedIn={loggedIn} isLiked={isLiked} />}
+          element={
+            <Movies
+              loggedIn={loggedIn}
+              isLiked={isLiked}
+              isLoading={isLoading}
+              onSearchFilm={handleSearchFilm}
+            />
+          }
         />
         <Route
           path="/saved-movies"
