@@ -1,3 +1,4 @@
+import "./Movies.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
@@ -8,8 +9,10 @@ function Movies({ isLiked, loggedIn, isLoading, onSearchFilm }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <SearchForm onSearchFilm={onSearchFilm} />
-      {isLoading ? <Preloader /> : <MoviesAll isLiked={isLiked} />}
+      <main className="movies">
+        <SearchForm onSearchFilm={onSearchFilm} />
+        {isLoading ? <Preloader /> : <MoviesAll isLiked={isLiked} />}
+      </main>
       <Footer />
     </>
   );

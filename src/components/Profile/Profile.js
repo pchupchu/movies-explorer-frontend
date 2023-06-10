@@ -21,7 +21,7 @@ function Profile({ loggedIn, handleSuccess }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <main className="profile__container">
+      <main className="profile">
         <h2 className="profile__title">Привет, Виталий!</h2>
         <form className="profile__form" onSubmit={handleSubmit} noValidate>
           <fieldset className="profile__form-section">

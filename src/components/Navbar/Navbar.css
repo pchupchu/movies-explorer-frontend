@@ -1,8 +1,8 @@
-.navbar__hidden {
+.navbar {
   display: none;
 }
 
-.navbar__opened {
+.navbar_opened {
   display: none;
   width: 100%;
   height: 100%;

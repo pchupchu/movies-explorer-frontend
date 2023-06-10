@@ -25,7 +25,7 @@ function Header({ loggedIn }) {
   return (
     <>
       <header
-        className={`header ${location.pathname === "/" ? "header__main" : ""}`}
+        className={`header ${location.pathname === "/" ? "header_main" : ""}`}
       >
         <div className="header__navigation">
           <Link to="/">

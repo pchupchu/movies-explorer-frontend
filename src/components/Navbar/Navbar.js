@@ -5,7 +5,7 @@ function Navbar({ isNavbarOpen }) {
   const location = useLocation();
 
   return (
-    <div className={`navbar__hidden ${isNavbarOpen ? "navbar__opened" : ""}`}>
+    <div className={`navbar ${isNavbarOpen ? "navbar_opened" : ""}`}>
       <div className={"navbar__container"}>
         <ul className="navbar__links">
           <li>

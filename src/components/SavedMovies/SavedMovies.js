@@ -1,3 +1,4 @@
+import "./SavedMovies.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
@@ -7,8 +8,10 @@ function SavedMovies({ loggedIn }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <SearchForm />
-      <MoviesCardList />
+      <main className="saved-movies">
+        <SearchForm />
+        <MoviesCardList />
+      </main>
       <Footer />
     </>
   );

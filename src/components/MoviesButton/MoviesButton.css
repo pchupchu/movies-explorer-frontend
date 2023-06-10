@@ -12,6 +12,7 @@
   opacity: 1;
   transition: opacity 0.8s ease-in-out;
   flex-grow: 0;
+  width: calc(100% - 140px);
 }
 
 .movies-button:hover {
@@ -21,11 +22,13 @@
 @media screen and (max-width: 960px) {
   .movies-button {
     margin: 50px 30px 80px;
+    width: calc(100% - 60px);
   }
 }
 
 @media screen and (max-width: 425px) {
   .movies-button {
     margin: 50px 10px 80px;
+    width: calc(100% - 20px);
   }
 }

@@ -23,7 +23,7 @@ function Auth({ ...props }) {
       </form>
       <span className="auth__text">
         {props.text}
-        <Link className="auth__text auth__link" to={props.link}>
+        <Link className="auth__link" to={props.link}>
           {props.linkText}
         </Link>
       </span>
