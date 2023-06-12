@@ -1,17 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
 import "./MoviesCard.css";
-import PJHarvy from "../../images/PJHarvy.jpg";
 
-function MoviesCard({ isLiked }) {
+function MoviesCard({ isLiked, movie }) {
   const location = useLocation();
+
+  const movieApi = "https://api.nomoreparties.co/";
 
   return (
     <li className="movie">
-      <Link to="/">
+      <Link to={movie.trailerLink} target="_blank">
         <img
           className="movie__picture"
-          src={PJHarvy}
-          alt="Пи Джей Харви: A dog called money"
+          src={`${movieApi}${movie.image.url}`}
+          alt={movie.nameRU}
         />
       </Link>
 
@@ -29,9 +30,9 @@ function MoviesCard({ isLiked }) {
         ></button>
       )}
       <div className="movie__description">
-        <h2 className="movie__title">Пи Джей Харви: A dog called money</h2>
+        <h2 className="movie__title">{movie.nameRU}</h2>
         <div className="movie__length-container">
-          <p className="movie__length">1.17</p>
+          <p className="movie__length">{movie.duration}</p>
         </div>
       </div>
     </li>

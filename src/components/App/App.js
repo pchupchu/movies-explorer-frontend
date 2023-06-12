@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "../Login/Login";
@@ -9,6 +9,7 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import * as apiMovies from "../../utils/MoviesApi";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -16,6 +17,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [movies, setMovies] = useState([]);
 
   function closePopup() {
     setIsInfoTooltipOpen(false);
@@ -29,6 +31,19 @@ function App() {
   function handleSearchFilm() {
     setIsLoading(true);
   }
+
+  useEffect(() => {
+    apiMovies
+      .getMovies()
+      .then((res) => {
+        console.log(res);
+        setMovies(res);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }, []);
+
   return (
     <div className="app">
       <Routes>
@@ -50,6 +65,7 @@ function App() {
               isLiked={isLiked}
               isLoading={isLoading}
               onSearchFilm={handleSearchFilm}
+              movies={movies}
             />
           }
         />

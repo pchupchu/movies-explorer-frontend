@@ -1,14 +1,12 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ isLiked }) {
+function MoviesCardList({ isLiked, movies }) {
   return (
     <ul className="movies-list">
-      <MoviesCard isLiked={isLiked} />
-      <MoviesCard isLiked={true} />
-      <MoviesCard isLiked={isLiked} />
-      <MoviesCard isLiked={isLiked} />
-      <MoviesCard isLiked={isLiked} />
+      {movies.map((movie) => {
+        return <MoviesCard key={movie.id} movie={movie} isLiked={isLiked} />;
+      })}
     </ul>
   );
 }

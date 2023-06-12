@@ -1,10 +1,10 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesButton from "../MoviesButton/MoviesButton";
 
-function MoviesAll({ isLiked }) {
+function MoviesAll({ isLiked, movies }) {
   return (
     <>
-      <MoviesCardList isLiked={isLiked} />
+      <MoviesCardList isLiked={isLiked} movies={movies} />
       <MoviesButton />
     </>
   );
