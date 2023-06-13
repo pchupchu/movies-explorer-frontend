@@ -33,15 +33,16 @@ function App() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     apiMovies
       .getMovies()
       .then((res) => {
-        console.log(res);
         setMovies(res);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (

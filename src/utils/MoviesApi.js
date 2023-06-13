@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.nomoreparties.co/beatfilm-movies";
+import { MOVIES_URL } from "./constants";
 
 function checkRes(res) {
   if (res.ok) {
@@ -8,7 +8,7 @@ function checkRes(res) {
 }
 
 export const getMovies = () => {
-  return fetch(`${BASE_URL}`, {
+  return fetch(`${MOVIES_URL}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const getMovies = () => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${MOVIES_URL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const authorize = (email, password) => {
 };
 
 export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${MOVIES_URL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
