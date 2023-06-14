@@ -2,11 +2,17 @@ import "./Login.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Login() {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+function Login({ handleLogin }) {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!values.email || !values.password) {
+      return;
+    }
+    resetForm();
+    handleLogin(values.email, values.password);
   }
 
   return (

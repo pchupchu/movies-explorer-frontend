@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./MoviesCard.css";
-import { BASE_URL } from "../../utils/constants";
+import { MOVIES_URL } from "../../utils/constants";
 
 function MoviesCard({ isLiked, movie }) {
   const location = useLocation();
@@ -16,7 +16,7 @@ function MoviesCard({ isLiked, movie }) {
       <Link to={movie.trailerLink} target="_blank">
         <img
           className="movie__picture"
-          src={`${BASE_URL}${movie.image.url}`}
+          src={`${MOVIES_URL}${movie.image.url}`}
           alt={movie.nameRU}
         />
       </Link>

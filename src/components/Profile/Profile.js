@@ -2,10 +2,20 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
+import { useContext, useEffect } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Profile({ loggedIn, handleSuccess }) {
-  const { values, handleChange, isValid } = useFormAndValidation();
+function Profile({
+  loggedIn,
+  handleSuccess,
+  signOut,
+  onUpdateUser,
+  isUserName,
+  handleUserName,
+}) {
+  const user = useContext(CurrentUserContext);
+  const { values, setValues, handleChange, isValid } = useFormAndValidation();
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -13,16 +23,27 @@ function Profile({ loggedIn, handleSuccess }) {
     setIsEdit(!isEdit);
   }
 
+  useEffect(() => {
+    if (user.name) {
+      setValues(user);
+    }
+  }, [user, setValues]);
+
   function handleSubmit(e) {
     e.preventDefault();
-    handleSuccess(true);
+    onUpdateUser({
+      name: values.name,
+      email: values.email,
+    });
+    handleUserName(values.name);
+    handleSuccess();
   }
 
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="profile">
-        <h2 className="profile__title">Привет, Виталий!</h2>
+        <h2 className="profile__title">{`Привет, ${isUserName}!`}</h2>
         <form className="profile__form" onSubmit={handleSubmit} noValidate>
           <fieldset className="profile__form-section">
             <label htmlFor="name" className="profile__form-label">
@@ -37,7 +58,7 @@ function Profile({ loggedIn, handleSuccess }) {
               minLength="2"
               maxLength="30"
               required
-              value={values.name || "Виталий"}
+              value={values.name || ""}
               onChange={handleChange}
               disabled={!isEdit}
             />
@@ -53,7 +74,7 @@ function Profile({ loggedIn, handleSuccess }) {
               name="email"
               placeholder="Email"
               required
-              value={values.email || "pochta@yandex.ru"}
+              value={values.email || ""}
               onChange={handleChange}
               disabled={!isEdit}
             />
@@ -89,7 +110,11 @@ function Profile({ loggedIn, handleSuccess }) {
             >
               Редактировать
             </button>
-            <Link className="profile__button profile__link" to="/signup">
+            <Link
+              className="profile__button profile__link"
+              to="/"
+              onClick={signOut}
+            >
               Выйти из аккаунта
             </Link>
           </>

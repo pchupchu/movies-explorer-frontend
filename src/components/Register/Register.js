@@ -2,11 +2,13 @@ import "./Register.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Register() {
+function Register({ handleSuccessReg }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
+    handleSuccessReg(values.name, values.email, values.password);
+    console.log(values);
   }
 
   return (

@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.nomoreparties.co/beatfilm-movies";
+import { BASE_URL } from "./constants";
 
 function checkRes(res) {
   if (res.ok) {
@@ -7,14 +7,14 @@ function checkRes(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export const register = (password, email) => {
+export const register = (password, email, name) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password, email }),
-  }).then((response) => checkRes(response));
+    body: JSON.stringify({ password, email, name }),
+  }).then((res) => checkRes(res));
 };
 
 export const authorize = (email, password) => {
@@ -25,7 +25,7 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => checkRes(response))
+    .then((res) => checkRes(res))
     .then((data) => {
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -44,4 +44,27 @@ export const getContent = (token) => {
   })
     .then((res) => checkRes(res))
     .then((data) => data);
+};
+
+export const getProfileInfo = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  }).then((res) => checkRes(res));
+};
+
+export const setProfileInfo = (user) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: user.name,
+      email: user.email,
+    }),
+  }).then((res) => checkRes(res));
 };
