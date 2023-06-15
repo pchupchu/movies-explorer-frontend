@@ -4,7 +4,7 @@ function checkRes(res) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(res.status);
 }
 
 export const register = (password, email, name) => {

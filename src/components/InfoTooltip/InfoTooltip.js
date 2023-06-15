@@ -41,7 +41,7 @@ function InfoTooltip({ isOpen, onClose, isSuccess }) {
         <h2 className="popup__title">
           {isSuccess
             ? "Информация Вашего профиля обновлена успешно!"
-            : `Что-то пошло не так! Попробуйте ещё раз.`}
+            : "Что-то пошло не так! Попробуйте ещё раз."}
         </h2>
       </div>
     </div>

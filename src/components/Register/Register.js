@@ -2,13 +2,12 @@ import "./Register.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Register({ handleSuccessReg }) {
+function Register({ handleSuccessReg, isError }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     handleSuccessReg(values.name, values.email, values.password);
-    console.log(values);
   }
 
   return (
@@ -32,12 +31,13 @@ function Register({ handleSuccessReg }) {
           placeholder="Имя"
           minLength="2"
           maxLength="30"
+          pattern="^[A-Za-zА-Яа-яЁё\-\s]+"
           value={values.name || ""}
           onChange={handleChange}
           required
         />
         <span
-          className={`register__form-error ${
+          className={`register__form-error register__form-error_input ${
             isValid ? "" : "register__form-error_active"
           }`}
         >
@@ -57,7 +57,7 @@ function Register({ handleSuccessReg }) {
           required
         />
         <span
-          className={`register__form-error ${
+          className={`register__form-error register__form-error_input ${
             isValid ? "" : "register__form-error_active"
           }`}
         >
@@ -79,13 +79,16 @@ function Register({ handleSuccessReg }) {
           required
         />
         <span
-          className={`register__form-error ${
+          className={`register__form-error register__form-error_input ${
             isValid ? "" : "register__form-error_active"
           }`}
         >
           {errors.password}
         </span>
       </label>
+      <span className="register__form-error register__form-error_active">
+        {isError}
+      </span>
     </Auth>
   );
 }

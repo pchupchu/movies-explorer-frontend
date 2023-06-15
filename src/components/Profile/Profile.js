@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
 import { useContext, useEffect } from "react";
@@ -8,26 +7,22 @@ import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Profile({
   loggedIn,
-  handleSuccess,
   signOut,
   onUpdateUser,
-  isUserName,
-  handleUserName,
+  isError,
+  isEdit,
+  onEditProfile,
 }) {
   const user = useContext(CurrentUserContext);
-  const { values, setValues, handleChange, isValid } = useFormAndValidation();
-
-  const [isEdit, setIsEdit] = useState(false);
-
-  function handleEditProfile() {
-    setIsEdit(!isEdit);
-  }
+  const { values, setValues, handleChange, isValid, setIsValid, errors } =
+    useFormAndValidation();
 
   useEffect(() => {
     if (user.name) {
       setValues(user);
+      setIsValid(false);
     }
-  }, [user, setValues]);
+  }, [user, setValues, setIsValid]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -35,15 +30,13 @@ function Profile({
       name: values.name,
       email: values.email,
     });
-    handleUserName(values.name);
-    handleSuccess();
   }
 
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="profile">
-        <h2 className="profile__title">{`Привет, ${isUserName}!`}</h2>
+        <h2 className="profile__title">{`Привет, ${user.name}!`}</h2>
         <form className="profile__form" onSubmit={handleSubmit} noValidate>
           <fieldset className="profile__form-section">
             <label htmlFor="name" className="profile__form-label">
@@ -57,11 +50,19 @@ function Profile({
               placeholder="Имя"
               minLength="2"
               maxLength="30"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+"
               required
               value={values.name || ""}
               onChange={handleChange}
               disabled={!isEdit}
             />
+            <span
+              className={`profile__form-error profile__form-error_input ${
+                isValid ? "" : "profile__form-error_active"
+              }`}
+            >
+              {errors.name}
+            </span>
           </fieldset>
           <fieldset className="profile__form-section">
             <label htmlFor="email" className="profile__form-label">
@@ -78,16 +79,19 @@ function Profile({
               onChange={handleChange}
               disabled={!isEdit}
             />
+            <span
+              className={`profile__form-error profile__form-error_input ${
+                isValid ? "" : "profile__form-error_active"
+              }`}
+            >
+              {errors.email}
+            </span>
           </fieldset>
 
           {isEdit ? (
             <>
-              <span
-                className={`profile__form-error ${
-                  isValid ? "" : "profile__form-error_active"
-                }`}
-              >
-                При обновлении профиля произошла ошибка.
+              <span className="profile__form-error profile__form-error_active">
+                {isError}
               </span>
               <button
                 type="submit"
@@ -106,7 +110,7 @@ function Profile({
             <button
               type="button"
               className="profile__button"
-              onClick={handleEditProfile}
+              onClick={onEditProfile}
             >
               Редактировать
             </button>

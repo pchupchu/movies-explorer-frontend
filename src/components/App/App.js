@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -12,7 +13,13 @@ import Profile from "../Profile/Profile";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import * as apiMovies from "../../utils/MoviesApi";
 import * as auth from "../../utils/MainApi";
-// import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute"
+import {
+  BED_REQUEST_ERROR,
+  BED_REQUEST_ERROR_MESSAGE,
+  CONFLICT_ERROR,
+  CONFLICT_ERROR_MESSAGE,
+  SERVER_ERROR_MESSAGE,
+} from "../../utils/constants";
 
 function App() {
   const navigate = useNavigate();
@@ -21,22 +28,21 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
-  const [isSuccessReg, setIsSuccessReg] = useState(false);
-  const [isUserName, setIsUserName] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
 
   function closePopup() {
     setIsInfoTooltipOpen(false);
   }
 
-  function handleSuccess() {
-    setIsSuccess(true);
-    setIsInfoTooltipOpen(true);
-  }
-
   function handleSearchFilm() {
     setIsLoading(true);
+  }
+
+  function handleEditProfile() {
+    setIsEdit(!isEdit);
   }
 
   useEffect(() => {
@@ -53,31 +59,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    auth
-      .getProfileInfo()
-      .then((res) => {
-        setCurrentUser(res.data);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-  }, []);
+    if (loggedIn) {
+      auth
+        .getProfileInfo()
+        .then((res) => {
+          setCurrentUser(res.data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
+  }, [loggedIn]);
 
   function handleSuccessReg(name, email, password) {
     auth
       .register(password, email, name)
-      .then((res) => {
-        if (res) {
-          console.log(res);
-          setIsSuccessReg(true);
-          navigate("/", { replace: true });
-        }
+      .then(() => {
+        handleLogin(email, password);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-        setIsSuccessReg(false);
-      });
+        if (err === CONFLICT_ERROR) {
+          setIsError(CONFLICT_ERROR_MESSAGE);
+        } else {
+          setIsError(SERVER_ERROR_MESSAGE);
+        }
+      })
+      .finally(setTimeout(() => setIsError(""), 3500));
   }
 
   function handleLogin(email, password) {
@@ -86,10 +94,19 @@ function App() {
       .then((data) => {
         if (data.token) {
           setLoggedIn(true);
-          navigate("/", { replace: true });
+          navigate("/movies", { replace: true });
         }
       })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+        setLoggedIn(false);
+        if (err === BED_REQUEST_ERROR) {
+          setIsError(BED_REQUEST_ERROR_MESSAGE);
+        } else {
+          setIsError(SERVER_ERROR_MESSAGE);
+        }
+      })
+      .finally(setTimeout(() => setIsError(""), 3500));
   }
 
   useEffect(() => {
@@ -105,7 +122,7 @@ function App() {
           .then((res) => {
             if (res) {
               setLoggedIn(true);
-              handleUserName(res.data.name);
+              setCurrentUser(res.data);
             }
           })
           .catch((err) => console.log(`Ошибка: ${err}`));
@@ -115,46 +132,59 @@ function App() {
 
   function signOut() {
     localStorage.removeItem("token");
+    setLoggedIn(false);
+    setCurrentUser({});
     navigate("/", { replace: true });
-  }
-
-  function handleUserName(name) {
-    setIsUserName(name);
   }
 
   function handleUpdateUser(user) {
     auth
       .setProfileInfo(user)
       .then((res) => {
-        console.log(res.data);
         setCurrentUser(res.data);
         setIsSuccess(true);
+        setIsInfoTooltipOpen(true);
+        setTimeout(() => handleEditProfile(), 3500);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+        setIsSuccess(false);
+        setIsInfoTooltipOpen(false);
+        if (err === CONFLICT_ERROR) {
+          setIsError(CONFLICT_ERROR_MESSAGE);
+        } else {
+          setIsError(SERVER_ERROR_MESSAGE);
+        }
+      })
+      .finally(setTimeout(() => setIsError(""), 3500));
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <Routes>
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+          <Route
+            path="/signin"
+            element={<Login handleLogin={handleLogin} isError={isError} />}
+          />
           <Route
             path="/signup"
-            element={<Register handleSuccessReg={handleSuccessReg} />}
+            element={
+              <Register handleSuccessReg={handleSuccessReg} isError={isError} />
+            }
           />
 
           <Route
             path="/profile"
             element={
-              <Profile
+              <ProtectedRouteElement
+                element={Profile}
                 loggedIn={loggedIn}
-                handleSuccess={handleSuccess}
                 signOut={signOut}
                 onUpdateUser={handleUpdateUser}
-                isUserName={isUserName}
-                handleUserName={handleUserName}
+                isError={isError}
+                isEdit={isEdit}
+                onEditProfile={handleEditProfile}
               />
             }
           />
@@ -162,7 +192,8 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movies
+              <ProtectedRouteElement
+                element={Movies}
                 loggedIn={loggedIn}
                 isLiked={isLiked}
                 isLoading={isLoading}
@@ -173,7 +204,12 @@ function App() {
           />
           <Route
             path="/saved-movies"
-            element={<SavedMovies loggedIn={loggedIn} />}
+            element={
+              <ProtectedRouteElement
+                element={SavedMovies}
+                loggedIn={loggedIn}
+              />
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

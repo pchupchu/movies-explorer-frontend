@@ -2,16 +2,14 @@ import "./Login.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Login({ handleLogin }) {
-  const { values, handleChange, errors, isValid, resetForm } =
-    useFormAndValidation();
+function Login({ handleLogin, isError }) {
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!values.email || !values.password) {
       return;
     }
-    resetForm();
     handleLogin(values.email, values.password);
   }
 
@@ -39,7 +37,7 @@ function Login({ handleLogin }) {
           required
         />
         <span
-          className={`login__form-error ${
+          className={`login__form-error login__form-error_input ${
             isValid ? "" : "login__form-error_active"
           }`}
         >
@@ -61,13 +59,16 @@ function Login({ handleLogin }) {
           required
         />
         <span
-          className={`login__form-error ${
+          className={`login__form-error login__form-error_input ${
             isValid ? "" : "login__form-error_active"
           }`}
         >
           {errors.password}
         </span>
       </label>
+      <span className="login__form-error login__form-error_active">
+        {isError}
+      </span>
     </Auth>
   );
 }
