@@ -24,12 +24,10 @@ import {
 function App() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
-
   //Статус пользователя
   const [loggedIn, setLoggedIn] = useState(
     localStorage.getItem("loggedIn") || false
   );
-  const [isLiked, setIsLiked] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState("");
@@ -69,6 +67,7 @@ function App() {
     }
   }, [loggedIn]);
 
+  // Загрузка данных пользователя
   useEffect(() => {
     if (loggedIn) {
       apiMain
@@ -148,6 +147,7 @@ function App() {
     }
   };
 
+  // Выход из приложения
   function signOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("loggedIn");
@@ -156,6 +156,7 @@ function App() {
     navigate("/", { replace: true });
   }
 
+  // Обновление данных пользователя
   function handleUpdateUser(user) {
     apiMain
       .setProfileInfo(user)
@@ -173,6 +174,29 @@ function App() {
         }
       })
       .finally(setTimeout(() => setIsInfoTooltipOpen(true), 800));
+  }
+
+  // Добавление лайка
+  function handleMovieLike(movie) {
+    apiMain
+      .setNewMovie(movie)
+      .then((res) => {
+        setSavedMovies((state) => [...state, res.data]);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+  }
+
+  function handleMovieDislike(_id) {
+    apiMain
+      .deleteMovie(_id)
+      .then(() => {
+        setSavedMovies((state) => state.filter((c) => c._id !== _id));
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
   }
 
   return (
@@ -220,10 +244,12 @@ function App() {
               <ProtectedRouteElement
                 element={Movies}
                 loggedIn={loggedIn}
-                isLiked={isLiked}
                 isLoading={isLoading}
                 onSearchFilm={handleSearchFilm}
                 movies={movies}
+                onMovieLike={handleMovieLike}
+                onMovieDislike={handleMovieDislike}
+                savedMovies={savedMovies}
               />
             }
           />
@@ -233,6 +259,9 @@ function App() {
               <ProtectedRouteElement
                 element={SavedMovies}
                 loggedIn={loggedIn}
+                onSearchFilm={handleSearchFilm}
+                onMovieDislike={handleMovieDislike}
+                savedMovies={savedMovies}
               />
             }
           />

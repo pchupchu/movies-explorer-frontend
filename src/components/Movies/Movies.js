@@ -5,7 +5,15 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MoviesAll from "../MoviesAll/MoviesAll";
 
-function Movies({ isLiked, loggedIn, isLoading, onSearchFilm, movies }) {
+function Movies({
+  loggedIn,
+  isLoading,
+  onSearchFilm,
+  movies,
+  onMovieLike,
+  onMovieDislike,
+  savedMovies,
+}) {
   return (
     <>
       <Header loggedIn={loggedIn} />
@@ -14,7 +22,12 @@ function Movies({ isLiked, loggedIn, isLoading, onSearchFilm, movies }) {
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesAll isLiked={isLiked} movies={movies} />
+          <MoviesAll
+            movies={movies}
+            onMovieLike={onMovieLike}
+            onMovieDislike={onMovieDislike}
+            savedMovies={savedMovies}
+          />
         )}
       </main>
       <Footer />

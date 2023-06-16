@@ -4,13 +4,13 @@ import Footer from "../Footer/Footer";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({ loggedIn }) {
+function SavedMovies({ loggedIn, onSearchFilm, onMovieDislike }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="saved-movies">
-        <SearchForm />
-        <MoviesCardList />
+        <SearchForm onSearchFilm={onSearchFilm} />
+        <MoviesCardList onMovieDislike={onMovieDislike} />
       </main>
       <Footer />
     </>
