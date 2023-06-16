@@ -68,3 +68,12 @@ export const setProfileInfo = (user) => {
     }),
   }).then((res) => checkRes(res));
 };
+
+export const getSavedMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  }).then((res) => checkRes(res));
+};

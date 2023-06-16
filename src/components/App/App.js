@@ -12,7 +12,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import * as apiMovies from "../../utils/MoviesApi";
-import * as auth from "../../utils/MainApi";
+import * as apiMain from "../../utils/MainApi";
 import {
   BED_REQUEST_ERROR,
   BED_REQUEST_ERROR_MESSAGE,
@@ -53,14 +53,14 @@ function App() {
     setIsEdit(!isEdit);
   }
 
-  //Загрузка всех фильмов
+  // Загрузка всех фильмов (включая сохраненные)
   useEffect(() => {
     setIsLoading(true);
     if (loggedIn) {
-      apiMovies
-        .getMovies()
-        .then((res) => {
-          setMovies(res);
+      Promise.all([apiMovies.getMovies(), apiMain.getSavedMovies()])
+        .then(([moviesRes, savedMoviesRes]) => {
+          setMovies(moviesRes);
+          setSavedMovies(savedMoviesRes.data);
         })
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
@@ -69,11 +69,9 @@ function App() {
     }
   }, [loggedIn]);
 
-  //Загрузка всех сохраненных фильмов
-
   useEffect(() => {
     if (loggedIn) {
-      auth
+      apiMain
         .getProfileInfo()
         .then((res) => {
           setCurrentUser(res.data);
@@ -86,7 +84,7 @@ function App() {
 
   //Регистрация
   function handleSuccessReg(name, email, password) {
-    auth
+    apiMain
       .register(password, email, name)
       .then(() => {
         handleLogin(email, password);
@@ -105,7 +103,7 @@ function App() {
 
   //Логин
   function handleLogin(email, password) {
-    auth
+    apiMain
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
@@ -136,7 +134,7 @@ function App() {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
-        auth
+        apiMain
           .getContent(token)
           .then((res) => {
             if (res) {
@@ -159,7 +157,7 @@ function App() {
   }
 
   function handleUpdateUser(user) {
-    auth
+    apiMain
       .setProfileInfo(user)
       .then((res) => {
         setCurrentUser(res.data);
