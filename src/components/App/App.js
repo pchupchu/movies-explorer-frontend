@@ -24,17 +24,25 @@ import {
 function App() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  //Статус пользователя
+  const [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem("loggedIn") || false
+  );
   const [isLiked, setIsLiked] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
 
   function closePopup() {
     setIsInfoTooltipOpen(false);
+    if (!isError || isSuccess) {
+      setIsEdit(false);
+    }
   }
 
   function handleSearchFilm() {
@@ -45,18 +53,23 @@ function App() {
     setIsEdit(!isEdit);
   }
 
+  //Загрузка всех фильмов
   useEffect(() => {
     setIsLoading(true);
-    apiMovies
-      .getMovies()
-      .then((res) => {
-        setMovies(res);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+    if (loggedIn) {
+      apiMovies
+        .getMovies()
+        .then((res) => {
+          setMovies(res);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [loggedIn]);
+
+  //Загрузка всех сохраненных фильмов
 
   useEffect(() => {
     if (loggedIn) {
@@ -71,6 +84,7 @@ function App() {
     }
   }, [loggedIn]);
 
+  //Регистрация
   function handleSuccessReg(name, email, password) {
     auth
       .register(password, email, name)
@@ -79,34 +93,39 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
+        setIsSuccess(false);
         if (err === CONFLICT_ERROR) {
           setIsError(CONFLICT_ERROR_MESSAGE);
         } else {
           setIsError(SERVER_ERROR_MESSAGE);
         }
-      })
-      .finally(setTimeout(() => setIsError(""), 3500));
+        setTimeout(() => setIsInfoTooltipOpen(true), 800);
+      });
   }
 
+  //Логин
   function handleLogin(email, password) {
     auth
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
           setLoggedIn(true);
+          localStorage.setItem("loggedIn", "true");
           navigate("/movies", { replace: true });
+          setIsSuccess(true);
         }
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
         setLoggedIn(false);
+        setIsSuccess(false);
         if (err === BED_REQUEST_ERROR) {
           setIsError(BED_REQUEST_ERROR_MESSAGE);
         } else {
           setIsError(SERVER_ERROR_MESSAGE);
         }
       })
-      .finally(setTimeout(() => setIsError(""), 3500));
+      .finally(setTimeout(() => setIsInfoTooltipOpen(true), 800));
   }
 
   useEffect(() => {
@@ -122,6 +141,7 @@ function App() {
           .then((res) => {
             if (res) {
               setLoggedIn(true);
+              localStorage.setItem("loggedIn", "true");
               setCurrentUser(res.data);
             }
           })
@@ -132,6 +152,7 @@ function App() {
 
   function signOut() {
     localStorage.removeItem("token");
+    localStorage.removeItem("loggedIn");
     setLoggedIn(false);
     setCurrentUser({});
     navigate("/", { replace: true });
@@ -143,20 +164,17 @@ function App() {
       .then((res) => {
         setCurrentUser(res.data);
         setIsSuccess(true);
-        setIsInfoTooltipOpen(true);
-        setTimeout(() => handleEditProfile(), 3500);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
         setIsSuccess(false);
-        setIsInfoTooltipOpen(false);
         if (err === CONFLICT_ERROR) {
           setIsError(CONFLICT_ERROR_MESSAGE);
         } else {
           setIsError(SERVER_ERROR_MESSAGE);
         }
       })
-      .finally(setTimeout(() => setIsError(""), 3500));
+      .finally(setTimeout(() => setIsInfoTooltipOpen(true), 800));
   }
 
   return (
@@ -165,12 +183,22 @@ function App() {
         <Routes>
           <Route
             path="/signin"
-            element={<Login handleLogin={handleLogin} isError={isError} />}
+            element={
+              <ProtectedRouteElement
+                element={Login}
+                handleLogin={handleLogin}
+                loggedIn={!loggedIn}
+              />
+            }
           />
           <Route
             path="/signup"
             element={
-              <Register handleSuccessReg={handleSuccessReg} isError={isError} />
+              <ProtectedRouteElement
+                loggedIn={!loggedIn}
+                element={Register}
+                handleSuccessReg={handleSuccessReg}
+              />
             }
           />
 
@@ -182,13 +210,12 @@ function App() {
                 loggedIn={loggedIn}
                 signOut={signOut}
                 onUpdateUser={handleUpdateUser}
-                isError={isError}
                 isEdit={isEdit}
                 onEditProfile={handleEditProfile}
               />
             }
           />
-          <Route path="/" element={<Main loggedIn={loggedIn} />} />
+
           <Route
             path="/movies"
             element={
@@ -211,12 +238,14 @@ function App() {
               />
             }
           />
+          <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closePopup}
           isSuccess={isSuccess}
+          isError={isError}
         />
       </div>
     </CurrentUserContext.Provider>

@@ -2,7 +2,7 @@ import "./Register.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Register({ handleSuccessReg, isError }) {
+function Register({ handleSuccessReg }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
@@ -37,7 +37,7 @@ function Register({ handleSuccessReg, isError }) {
           required
         />
         <span
-          className={`register__form-error register__form-error_input ${
+          className={`register__form-error ${
             isValid ? "" : "register__form-error_active"
           }`}
         >
@@ -57,7 +57,7 @@ function Register({ handleSuccessReg, isError }) {
           required
         />
         <span
-          className={`register__form-error register__form-error_input ${
+          className={`register__form-error ${
             isValid ? "" : "register__form-error_active"
           }`}
         >
@@ -79,16 +79,13 @@ function Register({ handleSuccessReg, isError }) {
           required
         />
         <span
-          className={`register__form-error register__form-error_input ${
+          className={`register__form-error ${
             isValid ? "" : "register__form-error_active"
           }`}
         >
           {errors.password}
         </span>
       </label>
-      <span className="register__form-error register__form-error_active">
-        {isError}
-      </span>
     </Auth>
   );
 }

@@ -1,9 +1,16 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router";
 import fail from "../../images/fail.png";
 import success from "../../images/success.png";
 import "./InfoTooltip.css";
 
-function InfoTooltip({ isOpen, onClose, isSuccess }) {
+function InfoTooltip({ isOpen, onClose, isSuccess, isError }) {
+  const location = useLocation();
+  const praise =
+    location.pathname === "/profile"
+      ? "Информация Вашего профиля обновлена успешно."
+      : "Добро пожаловать!";
+
   useEffect(() => {
     if (!isOpen) return;
     const closeByEscape = (e) => {
@@ -39,9 +46,7 @@ function InfoTooltip({ isOpen, onClose, isSuccess }) {
           alt={isSuccess ? "весёлый кот" : "грустный кот"}
         />
         <h2 className="popup__title">
-          {isSuccess
-            ? "Информация Вашего профиля обновлена успешно!"
-            : "Что-то пошло не так! Попробуйте ещё раз."}
+          {isSuccess ? `${praise}` : `${isError}`}
         </h2>
       </div>
     </div>

@@ -8,7 +8,7 @@ function MoviesCard({ isLiked, movie }) {
   function timeConvert(time) {
     const minutes = time % 60;
     const hours = Math.floor(time / 60);
-    return `${hours}.${minutes.toString().padStart(2, "0")}`;
+    return `${hours}ч ${minutes.toString().padStart(2, "0")}м`;
   }
 
   return (

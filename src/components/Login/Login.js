@@ -2,7 +2,7 @@ import "./Login.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Login({ handleLogin, isError }) {
+function Login({ handleLogin }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
@@ -37,7 +37,7 @@ function Login({ handleLogin, isError }) {
           required
         />
         <span
-          className={`login__form-error login__form-error_input ${
+          className={`login__form-error ${
             isValid ? "" : "login__form-error_active"
           }`}
         >
@@ -59,16 +59,13 @@ function Login({ handleLogin, isError }) {
           required
         />
         <span
-          className={`login__form-error login__form-error_input ${
+          className={`login__form-error ${
             isValid ? "" : "login__form-error_active"
           }`}
         >
           {errors.password}
         </span>
       </label>
-      <span className="login__form-error login__form-error_active">
-        {isError}
-      </span>
     </Auth>
   );
 }

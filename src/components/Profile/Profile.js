@@ -5,14 +5,7 @@ import { useContext, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Profile({
-  loggedIn,
-  signOut,
-  onUpdateUser,
-  isError,
-  isEdit,
-  onEditProfile,
-}) {
+function Profile({ loggedIn, signOut, onUpdateUser, isEdit, onEditProfile }) {
   const user = useContext(CurrentUserContext);
   const { values, setValues, handleChange, isValid, setIsValid, errors } =
     useFormAndValidation();
@@ -90,9 +83,6 @@ function Profile({
 
           {isEdit ? (
             <>
-              <span className="profile__form-error profile__form-error_active">
-                {isError}
-              </span>
               <button
                 type="submit"
                 disabled={!isValid}
