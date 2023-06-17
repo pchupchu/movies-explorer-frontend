@@ -3,7 +3,13 @@ import MoviesButton from "../MoviesButton/MoviesButton";
 import { useEffect, useState } from "react";
 import { SCREEN_L, SCREEN_S } from "../../utils/constants";
 
-function MoviesAll({ movies, onMovieLike, onMovieDislike, savedMovies }) {
+function MoviesAll({
+  onMovieLike,
+  onMovieDislike,
+  savedMovies,
+  searchResults,
+  isChecked,
+}) {
   const [pageWidth, setPageWidth] = useState(
     document.documentElement.clientWidth
   );
@@ -41,11 +47,12 @@ function MoviesAll({ movies, onMovieLike, onMovieDislike, savedMovies }) {
   return (
     <>
       <MoviesCardList
-        movies={movies}
         moviesNumber={moviesNumber}
         onMovieLike={onMovieLike}
         onMovieDislike={onMovieDislike}
         savedMovies={savedMovies}
+        searchResults={searchResults}
+        isChecked={isChecked}
       />
       <MoviesButton addMovies={addMovies} />
     </>

@@ -43,7 +43,7 @@ function App() {
     }
   }
 
-  function handleSearchFilm() {
+  function handleLoading() {
     setIsLoading(true);
   }
 
@@ -151,6 +151,8 @@ function App() {
   function signOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("loggedIn");
+    localStorage.removeItem("isAllMoviesChecked");
+    localStorage.removeItem("searchOfMovies");
     setLoggedIn(false);
     setCurrentUser({});
     navigate("/", { replace: true });
@@ -188,6 +190,7 @@ function App() {
       });
   }
 
+  // Удаление лайка
   function handleMovieDislike(_id) {
     apiMain
       .deleteMovie(_id)
@@ -245,7 +248,7 @@ function App() {
                 element={Movies}
                 loggedIn={loggedIn}
                 isLoading={isLoading}
-                onSearchFilm={handleSearchFilm}
+                onLoading={handleLoading}
                 movies={movies}
                 onMovieLike={handleMovieLike}
                 onMovieDislike={handleMovieDislike}
@@ -259,7 +262,6 @@ function App() {
               <ProtectedRouteElement
                 element={SavedMovies}
                 loggedIn={loggedIn}
-                onSearchFilm={handleSearchFilm}
                 onMovieDislike={handleMovieDislike}
                 savedMovies={savedMovies}
               />

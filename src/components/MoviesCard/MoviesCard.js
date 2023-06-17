@@ -20,6 +20,7 @@ function MoviesCard({
     const hours = Math.floor(time / 60);
     return `${hours}ч ${minutes.toString().padStart(2, "0")}м`;
   }
+
   function handleLikes() {
     if (isMoviesAll && isLiked) {
       setIsLiked(false);
@@ -35,17 +36,26 @@ function MoviesCard({
   return (
     <li className="movie">
       <Link to={movie.trailerLink} target="_blank">
-        <img
-          className="movie__picture"
-          src={`${MOVIES_URL}${movie.image.url}`}
-          alt={movie.nameRU}
-        />
+        {location.pathname === "/movies" ? (
+          <img
+            className="movie__picture"
+            src={`${MOVIES_URL}${movie.image.url}`}
+            alt={movie.nameRU}
+          />
+        ) : (
+          <img
+            className="movie__picture"
+            src={movie.image}
+            alt={movie.nameRU}
+          />
+        )}
       </Link>
 
       {location.pathname === "/saved-movies" ? (
         <button
           className="movie__button movie__dislike-button"
           type="button"
+          onClick={handleLikes}
         ></button>
       ) : (
         <button

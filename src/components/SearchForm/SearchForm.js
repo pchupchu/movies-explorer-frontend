@@ -1,15 +1,17 @@
 import "./SearchForm.css";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ onSearchFilm }) {
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSearchFilm();
-  }
-
+function SearchForm({
+  onLoading,
+  onChangeSearchTerm,
+  isChecked,
+  search,
+  onCheckedFilm,
+  onSubmitSearch,
+}) {
   return (
     <div className="search">
-      <form className="search__form" onSubmit={handleSubmit}>
+      <form className="search__form" onSubmit={onSubmitSearch}>
         <input
           type="text"
           className="search__input"
@@ -17,10 +19,12 @@ function SearchForm({ onSearchFilm }) {
           name="film"
           placeholder="Фильм"
           required
+          value={search || ""}
+          onChange={onChangeSearchTerm}
         />
         <button className="search__button" type="submit"></button>
       </form>
-      <FilterCheckbox />
+      <FilterCheckbox isChecked={isChecked} onCheckedFilm={onCheckedFilm} />
     </div>
   );
 }

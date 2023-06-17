@@ -4,6 +4,8 @@ export const BASE_URL = "https://api.movies-pchu.nomoredomains.rocks";
 export const SCREEN_S = 576;
 export const SCREEN_L = 1024;
 
+export const SHORT_FILM_DURATION = 40;
+
 export const BED_REQUEST_ERROR = 401;
 export const FORBIDDEN_ERROR = 403;
 export const NOT_FOUND_ERROR = 404;

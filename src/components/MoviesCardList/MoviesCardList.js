@@ -3,18 +3,22 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
 
 function MoviesCardList({
-  movies,
   moviesNumber,
   onMovieLike,
   onMovieDislike,
   savedMovies,
+  searchResults,
 }) {
   const location = useLocation();
 
   const isMoviesAll = location.pathname === "/movies";
 
+  // const moviesCardList = isMoviesAll
+  //   ? movies.slice(0, moviesNumber)
+  //   : savedMovies;
+
   const moviesCardList = isMoviesAll
-    ? movies.slice(0, moviesNumber)
+    ? searchResults.slice(0, moviesNumber)
     : savedMovies;
 
   return (
@@ -33,7 +37,7 @@ function MoviesCardList({
           return (
             <MoviesCard
               _id={_id}
-              key={movie.id}
+              key={movie.id || movie._id}
               movie={movie}
               isFilmLiked={isFilmLiked}
               onMovieLike={onMovieLike}
