@@ -9,6 +9,7 @@ function MoviesAll({
   savedMovies,
   searchResults,
   isChecked,
+  isValid,
 }) {
   const [pageWidth, setPageWidth] = useState(
     document.documentElement.clientWidth
@@ -53,8 +54,11 @@ function MoviesAll({
         savedMovies={savedMovies}
         searchResults={searchResults}
         isChecked={isChecked}
+        isValid={isValid}
       />
-      <MoviesButton addMovies={addMovies} />
+      {isValid && searchResults.length >= moviesNumber ? (
+        <MoviesButton addMovies={addMovies} />
+      ) : null}
     </>
   );
 }

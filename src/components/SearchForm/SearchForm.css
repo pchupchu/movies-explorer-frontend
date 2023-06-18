@@ -23,6 +23,7 @@
   margin: 0 auto 32px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 @media screen and (max-width: 960px) {
@@ -141,4 +142,30 @@
   .search__button {
     margin-bottom: 9px;
   }
+}
+
+.search__form-error {
+  font-size: 10px;
+  font-weight: 400;
+  color: #ff4062;
+  line-height: 1.2;
+  display: block;
+  max-height: 12px;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  text-align: left;
+  width: 390px;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 576px) {
+  .search__form-error {
+    max-width: 260px;
+  }
+}
+
+.search__form-error_active {
+  visibility: visible;
 }

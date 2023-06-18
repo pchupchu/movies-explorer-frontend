@@ -10,7 +10,6 @@ import { SHORT_FILM_DURATION } from "../../utils/constants";
 function Movies({
   loggedIn,
   isLoading,
-  onLoading,
   movies,
   onMovieLike,
   onMovieDislike,
@@ -26,6 +25,9 @@ function Movies({
     JSON.parse(localStorage.getItem("searchResults")) || []
   );
 
+  const [isValid, setIsValid] = useState(true);
+  const [error, setError] = useState("");
+
   function handleCheckedFilm() {
     setIsAllMoviesChecked(!isAllMoviesChecked);
     localStorage.setItem("isAllMoviesChecked", !isAllMoviesChecked);
@@ -34,6 +36,7 @@ function Movies({
   const handleChangeSearch = (e) => {
     setSearchOfMovies(e.target.value);
     localStorage.setItem("searchOfMovies", e.target.value);
+    setIsValid(true);
   };
 
   function handleSubmitSearch(e) {
@@ -45,7 +48,12 @@ function Movies({
         );
     localStorage.setItem("searchResults", JSON.stringify(results));
     setSearchResults(results);
-    console.log(results);
+    setIsValid(e.target.closest("form").checkValidity());
+    setError(e.target.validationMessage);
+    if (searchOfMovies.trim().length === 0) {
+      setIsValid(false);
+      setError("Нужно ввести ключевое слово");
+    }
   }
 
   const resultMovies = isAllMoviesChecked
@@ -57,12 +65,13 @@ function Movies({
       <Header loggedIn={loggedIn} />
       <main className="movies">
         <SearchForm
-          onLoading={onLoading}
           search={searchOfMovies}
           isChecked={isAllMoviesChecked}
           onCheckedFilm={handleCheckedFilm}
           onChangeSearchTerm={handleChangeSearch}
           onSubmitSearch={handleSubmitSearch}
+          isValid={isValid}
+          error={error}
         />
         {isLoading ? (
           <Preloader />
@@ -73,6 +82,7 @@ function Movies({
             savedMovies={savedMovies}
             searchResults={resultMovies}
             isChecked={isAllMoviesChecked}
+            isValid={isValid}
           />
         )}
       </main>

@@ -38,3 +38,13 @@
     max-width: 300px;
   }
 }
+
+.movies-list-text {
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.21;
+  text-align: center;
+  margin: 32px auto 0;
+  max-width: 300px;
+}

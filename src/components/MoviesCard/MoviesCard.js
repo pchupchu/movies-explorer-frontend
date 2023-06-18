@@ -23,13 +23,23 @@ function MoviesCard({
 
   function handleLikes() {
     if (isMoviesAll && isLiked) {
-      setIsLiked(false);
-      onMovieDislike(_id);
+      onMovieDislike(_id).then((res) => {
+        if (res) {
+          setIsLiked(false);
+        }
+      });
     } else if (isMoviesAll && !isLiked) {
-      setIsLiked(true);
-      onMovieLike(movie);
+      onMovieLike(movie).then((res) => {
+        if (res) {
+          setIsLiked(true);
+        }
+      });
     } else {
-      onMovieDislike(_id);
+      onMovieDislike(_id).then((res) => {
+        if (res) {
+          setIsLiked(false);
+        }
+      });
     }
   }
 

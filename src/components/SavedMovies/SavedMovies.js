@@ -10,6 +10,8 @@ function SavedMovies({ loggedIn, onMovieDislike, savedMovies }) {
   const [isSavedMoviesChecked, setIsSavedMoviesChecked] = useState(false);
   const [searchOfSavedMovies, setSearchOfSavedMovies] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isValid, setIsValid] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setSearchResults(savedMovies);
@@ -21,6 +23,7 @@ function SavedMovies({ loggedIn, onMovieDislike, savedMovies }) {
 
   const handleChangeSearch = (e) => {
     setSearchOfSavedMovies(e.target.value);
+    setIsValid(true);
   };
 
   function handleSubmitSearch(e) {
@@ -31,7 +34,12 @@ function SavedMovies({ loggedIn, onMovieDislike, savedMovies }) {
           movie.nameRU.toLowerCase().includes(searchOfSavedMovies)
         );
     setSearchResults(results);
-    console.log(results);
+    setIsValid(e.target.closest("form").checkValidity());
+    setError(e.target.validationMessage);
+    if (searchOfSavedMovies.trim().length === 0) {
+      setIsValid(false);
+      setError("Нужно ввести ключевое слово");
+    }
   }
 
   const resultMovies = isSavedMoviesChecked
@@ -48,11 +56,14 @@ function SavedMovies({ loggedIn, onMovieDislike, savedMovies }) {
           onCheckedFilm={handleCheckedFilm}
           onChangeSearchTerm={handleChangeSearch}
           onSubmitSearch={handleSubmitSearch}
+          isValid={isValid}
+          error={error}
         />
         <MoviesCardList
           onMovieDislike={onMovieDislike}
           savedMovies={resultMovies}
           isChecked={isSavedMoviesChecked}
+          isValid={isValid}
         />
       </main>
       <Footer />

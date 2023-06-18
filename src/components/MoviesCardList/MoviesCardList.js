@@ -8,46 +8,50 @@ function MoviesCardList({
   onMovieDislike,
   savedMovies,
   searchResults,
+  isValid,
 }) {
   const location = useLocation();
 
   const isMoviesAll = location.pathname === "/movies";
-
-  // const moviesCardList = isMoviesAll
-  //   ? movies.slice(0, moviesNumber)
-  //   : savedMovies;
 
   const moviesCardList = isMoviesAll
     ? searchResults.slice(0, moviesNumber)
     : savedMovies;
 
   return (
-    <ul className="movies-list">
-      {moviesCardList &&
-        moviesCardList.map((movie) => {
-          const isFilmLiked = savedMovies.some(
-            (savedMovie) => savedMovie.nameRU === movie.nameRU
-          );
-          const _id = isFilmLiked
-            ? savedMovies.find(
+    <>
+      {moviesCardList.length === 0 ? (
+        <p className="movies-list-text">Ничего не найдено </p>
+      ) : (
+        <ul className="movies-list">
+          {isValid &&
+            moviesCardList &&
+            moviesCardList.map((movie) => {
+              const isFilmLiked = savedMovies.some(
                 (savedMovie) => savedMovie.nameRU === movie.nameRU
-              )._id
-            : undefined;
+              );
+              const _id = isFilmLiked
+                ? savedMovies.find(
+                    (savedMovie) => savedMovie.nameRU === movie.nameRU
+                  )._id
+                : undefined;
 
-          return (
-            <MoviesCard
-              _id={_id}
-              key={movie.id || movie._id}
-              movie={movie}
-              isFilmLiked={isFilmLiked}
-              onMovieLike={onMovieLike}
-              onMovieDislike={onMovieDislike}
-              savedMovies={savedMovies}
-              isMoviesAll={isMoviesAll}
-            />
-          );
-        })}
-    </ul>
+              return (
+                <MoviesCard
+                  _id={_id}
+                  key={movie.id || movie._id}
+                  movie={movie}
+                  isFilmLiked={isFilmLiked}
+                  onMovieLike={onMovieLike}
+                  onMovieDislike={onMovieDislike}
+                  savedMovies={savedMovies}
+                  isMoviesAll={isMoviesAll}
+                />
+              );
+            })}
+        </ul>
+      )}
+    </>
   );
 }
 

@@ -2,16 +2,17 @@ import "./SearchForm.css";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 
 function SearchForm({
-  onLoading,
   onChangeSearchTerm,
   isChecked,
   search,
   onCheckedFilm,
   onSubmitSearch,
+  isValid,
+  error,
 }) {
   return (
     <div className="search">
-      <form className="search__form" onSubmit={onSubmitSearch}>
+      <form className="search__form" onSubmit={onSubmitSearch} noValidate>
         <input
           type="text"
           className="search__input"
@@ -22,6 +23,13 @@ function SearchForm({
           value={search || ""}
           onChange={onChangeSearchTerm}
         />
+        <span
+          className={`search__form-error ${
+            isValid ? "" : "search__form-error_active"
+          }`}
+        >
+          {error}
+        </span>
         <button className="search__button" type="submit"></button>
       </form>
       <FilterCheckbox isChecked={isChecked} onCheckedFilm={onCheckedFilm} />

@@ -19,6 +19,7 @@ import {
   CONFLICT_ERROR,
   CONFLICT_ERROR_MESSAGE,
   SERVER_ERROR_MESSAGE,
+  MOVIES_ERROR_MESSAGE,
 } from "../../utils/constants";
 
 function App() {
@@ -59,9 +60,14 @@ function App() {
         .then(([moviesRes, savedMoviesRes]) => {
           setMovies(moviesRes);
           setSavedMovies(savedMoviesRes.data);
+          setIsSuccess(true);
+          setIsInfoTooltipOpen(false);
         })
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
+          setIsSuccess(false);
+          setIsError(MOVIES_ERROR_MESSAGE);
+          setTimeout(() => setIsInfoTooltipOpen(true), 800);
         })
         .finally(() => setIsLoading(false));
     }
@@ -180,10 +186,11 @@ function App() {
 
   // Добавление лайка
   function handleMovieLike(movie) {
-    apiMain
+    return apiMain
       .setNewMovie(movie)
       .then((res) => {
         setSavedMovies((state) => [...state, res.data]);
+        return true;
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -192,10 +199,11 @@ function App() {
 
   // Удаление лайка
   function handleMovieDislike(_id) {
-    apiMain
+    return apiMain
       .deleteMovie(_id)
-      .then(() => {
+      .then((res) => {
         setSavedMovies((state) => state.filter((c) => c._id !== _id));
+        return true;
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -248,7 +256,6 @@ function App() {
                 element={Movies}
                 loggedIn={loggedIn}
                 isLoading={isLoading}
-                onLoading={handleLoading}
                 movies={movies}
                 onMovieLike={handleMovieLike}
                 onMovieDislike={handleMovieDislike}
