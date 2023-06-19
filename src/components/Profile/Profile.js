@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Profile.css";
 import Header from "../Header/Header";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
@@ -10,6 +10,8 @@ function Profile({ loggedIn, signOut, onUpdateUser, isEdit, onEditProfile }) {
   const { values, setValues, handleChange, isValid, setIsValid, errors } =
     useFormAndValidation();
 
+  const [isIdenticalValues, setIsIdenticalValues] = useState(true);
+
   useEffect(() => {
     if (user.name) {
       setValues(user);
@@ -17,12 +19,24 @@ function Profile({ loggedIn, signOut, onUpdateUser, isEdit, onEditProfile }) {
     }
   }, [user, setValues, setIsValid]);
 
+  useEffect(() => {
+    setIsIdenticalValues(
+      values.name === user.name && values.email === user.email
+    );
+  }, [values, user]);
+
   function handleSubmit(e) {
     e.preventDefault();
+    // if (values.name === user.name) {
+    //   setIsValid(false);
+    //   return;
+    // }
     onUpdateUser({
       name: values.name,
       email: values.email,
     });
+    console.log(user.name);
+    console.log(values.name);
   }
 
   return (
@@ -67,6 +81,7 @@ function Profile({ loggedIn, signOut, onUpdateUser, isEdit, onEditProfile }) {
               id="email"
               name="email"
               placeholder="Email"
+              pattern="^[a-z0-9\._\-]+@([a-z0-9\.\-]+\.)+[a-z]{2,4}$"
               required
               value={values.email || ""}
               onChange={handleChange}
@@ -87,7 +102,9 @@ function Profile({ loggedIn, signOut, onUpdateUser, isEdit, onEditProfile }) {
                 type="submit"
                 disabled={!isValid}
                 className={`profile__form-button ${
-                  isValid ? "" : "profile__form-button_inactive"
+                  isValid && !isIdenticalValues
+                    ? ""
+                    : "profile__form-button_inactive"
                 }`}
               >
                 Сохранить

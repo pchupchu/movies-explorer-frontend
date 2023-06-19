@@ -31,7 +31,7 @@ function SavedMovies({ loggedIn, onMovieDislike, savedMovies }) {
     const results = !searchOfSavedMovies
       ? savedMovies
       : savedMovies.filter((movie) =>
-          movie.nameRU.toLowerCase().includes(searchOfSavedMovies)
+          movie.nameRU.toLowerCase().includes(searchOfSavedMovies.toLowerCase())
         );
     setSearchResults(results);
     setIsValid(e.target.closest("form").checkValidity());

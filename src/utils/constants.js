@@ -3,6 +3,11 @@ export const BASE_URL = "https://api.movies-pchu.nomoredomains.rocks";
 
 export const SCREEN_S = 576;
 export const SCREEN_L = 1024;
+export const START_PAGE_MOVIES_L = 12;
+export const START_PAGE_MOVIES_M = 8;
+export const START_PAGE_MOVIES_S = 5;
+export const MOVIES_TO_ADD_L = 3;
+export const MOVIES_TO_ADD_S = 2;
 
 export const SHORT_FILM_DURATION = 40;
 

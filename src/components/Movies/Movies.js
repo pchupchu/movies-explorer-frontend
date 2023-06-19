@@ -44,7 +44,7 @@ function Movies({
     const results = !searchOfMovies
       ? movies
       : movies.filter((movie) =>
-          movie.nameRU.toLowerCase().includes(searchOfMovies)
+          movie.nameRU.toLowerCase().includes(searchOfMovies.toLowerCase())
         );
     localStorage.setItem("searchResults", JSON.stringify(results));
     setSearchResults(results);

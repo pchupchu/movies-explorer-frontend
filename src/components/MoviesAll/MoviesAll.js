@@ -1,7 +1,15 @@
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesButton from "../MoviesButton/MoviesButton";
 import { useEffect, useState } from "react";
-import { SCREEN_L, SCREEN_S } from "../../utils/constants";
+import {
+  SCREEN_L,
+  SCREEN_S,
+  START_PAGE_MOVIES_L,
+  START_PAGE_MOVIES_M,
+  START_PAGE_MOVIES_S,
+  MOVIES_TO_ADD_L,
+  MOVIES_TO_ADD_S,
+} from "../../utils/constants";
 
 function MoviesAll({
   onMovieLike,
@@ -16,9 +24,14 @@ function MoviesAll({
   );
 
   const moviesPerPage =
-    pageWidth > SCREEN_L ? 12 : pageWidth > SCREEN_S ? 8 : 5;
+    pageWidth > SCREEN_L
+      ? START_PAGE_MOVIES_L
+      : pageWidth > SCREEN_S
+      ? START_PAGE_MOVIES_M
+      : START_PAGE_MOVIES_S;
 
-  const moviesAddNumber = pageWidth > SCREEN_L ? 3 : 2;
+  const moviesAddNumber =
+    pageWidth > SCREEN_L ? MOVIES_TO_ADD_L : MOVIES_TO_ADD_S;
 
   const [moviesNumber, setMoviesNumber] = useState(moviesPerPage);
 
