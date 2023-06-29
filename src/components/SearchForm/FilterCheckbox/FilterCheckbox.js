@@ -1,13 +1,6 @@
 import "./FilterCheckbox.css";
-import { useState } from "react";
 
-function FilterCheckbox() {
-  const [isShortFilm, setIsShortFilm] = useState(false);
-
-  function handleShortFilm() {
-    setIsShortFilm(!isShortFilm);
-  }
-
+function FilterCheckbox({ isChecked, onCheckedFilm }) {
   return (
     <div className="filter">
       <input
@@ -15,7 +8,8 @@ function FilterCheckbox() {
         className="filter__input"
         id="short-film"
         name="short-film"
-        onClick={handleShortFilm}
+        onChange={onCheckedFilm}
+        checked={isChecked}
       />
       <label htmlFor="short-film" className="filter__title">
         Короткометражки

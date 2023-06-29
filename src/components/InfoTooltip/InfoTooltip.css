@@ -37,7 +37,7 @@
   .popup__container {
     max-width: 282px;
     min-height: 322px;
-    padding: 50px 18px;
+    padding: 45px 18px;
   }
 }
 
@@ -49,18 +49,17 @@
 
 .popup__title {
   color: #000;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 900;
   line-height: 1.21;
   text-align: center;
-  margin: 32px auto 0;
+  margin: 30px auto 0;
   max-width: 358px;
 }
 
 @media screen and (max-width: 576px) {
   .popup__title {
-    font-size: 20px;
-    margin-top: 40px;
+    font-size: 15px;
   }
 }
 

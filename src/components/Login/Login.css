@@ -67,8 +67,8 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: max-content;
-  max-width: 390px;
+  text-align: left;
+  width: 390px;
   margin: 0;
 }
 

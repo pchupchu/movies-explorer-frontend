@@ -2,11 +2,15 @@ import "./Login.css";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import Auth from "../AuthPage/AuthPage";
 
-function Login() {
+function Login({ handleLogin }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!values.email || !values.password) {
+      return;
+    }
+    handleLogin(values.email, values.password);
   }
 
   return (
@@ -28,6 +32,7 @@ function Login() {
           id="email"
           name="email"
           placeholder="Email"
+          pattern="^[a-z0-9\._\-]+@([a-z0-9\.\-]+\.)+[a-z]{2,4}$"
           value={values.email || ""}
           onChange={handleChange}
           required

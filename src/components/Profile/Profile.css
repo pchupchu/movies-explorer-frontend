@@ -81,6 +81,7 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 1.21;
+  position: relative;
 }
 
 .profile__form-section:nth-child(2) {
@@ -126,6 +127,11 @@
   .profile__form-error {
     max-width: 260px;
   }
+}
+
+.profile__form-error_input {
+  top: 12px;
+  text-align: right;
 }
 
 .profile__form-error_active {
